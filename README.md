@@ -81,13 +81,13 @@ Key terms:
 
 ## Availability
 
-Notes: SLOs are what make up an SLA. Many products/services have SLAs available to be seen by customers. High availability is hard, and comes at cost. Typically comes with trade-offs.No all parts of a system need to be highly available. 
+Notes: SLOs are what make up an SLA. Many products/services have SLAs available to be seen by customers. High availability is hard, and comes at cost. Typically comes with trade-offs.No all parts of a system need to be highly available.
 
-How do you make a system highly available?  make sure you system does not have single points of failure. To eliminate this we do redundancy - the act of replicating parts of a system. For example, we can have more than one server that access a Database with more than one load balancer to eliminate a single point of failure. 
+How do you make a system highly available? make sure you system does not have single points of failure. To eliminate this we do redundancy - the act of replicating parts of a system. For example, we can have more than one server that access a Database with more than one load balancer to eliminate a single point of failure.
 
-Passive redundancy - having multiple components at a given layer in a system, and if one of the components dies, nothing happens, the load is shared to the other components in the layer. 
+Passive redundancy - having multiple components at a given layer in a system, and if one of the components dies, nothing happens, the load is shared to the other components in the layer.
 
-Active redundancy - when you have many machines working together, and the is only one machine handling traffic for example, and this machine fails, the other machines are going to know that it failed, and are going to take over. This approach is more complicated. 
+Active redundancy - when you have many machines working together, and the is only one machine handling traffic for example, and this machine fails, the other machines are going to know that it failed, and are going to take over. This approach is more complicated.
 
 Key Terms:
 
@@ -96,6 +96,7 @@ Key Terms:
 - **High Availability:** Used to describe systems that have particularly high levels of availability, typically 5 nines or more; sometimes abbreviated "HA".
 
 - **Nines:** Typically refers to percentage of uptime. For example, 5 nines of availability means an uptime of 99.999% of the time. Below are the downtimes expected per year depending on those 9s:
+
   - 99% (two 9s): 87.7 hours
   - 99.9% (three 9s): 8.8 hours
   - 99.99%: 52.6 minutes
@@ -106,6 +107,28 @@ Key Terms:
 - **SLA:** Short for "service-level agreement", an SLA is a collection of guarantees given to a customer by a service provider. SLAs typically make guarantees on a system's availability, amongst other things. SLAs are made up of one or multiple SLOs.
 
 - **SLO:** Short for "service-level objective", an SLO is a guarantee given to a customer by a service provider. SLOs typically make guarantees on a system's availability, amongst other things. SLOs constitute an SLA.
+
+## Caching
+
+Notes: we typically use caching to speed up time complexity of an algorithm. In terms of a system, caching is used to improve the latency of a system, to speed up a system. CAching is going to be storing data, in a different location form the source of the data, where is faster to access it.
+
+Instances where caching can be useful:
+
+- If you are making many network requests
+- If you are making long computational operations
+- If you want to improve throughput, maybe you want to reduce the hits on a DB, and hit a cache instead
+
+Key terms:
+
+- **Cache:** A piece of hardware or software that stores data, typically meant to retrieve that data faster than otherwise. Caches are often used to store responses to network requests as well as results of computationally-long operations. Note that data in a cache can become stale if the main source of truth for that data (i.e., the main database behind the cache) gets updated and the cache doesn't.
+
+- **Cache Hit:** When requested data is found in a cache
+
+- **Cache Miss:** When requested data could have been found in a cache but isn't. This is typically used to refer to a negative consequence of a system failure or of a poor design choice. For example: If a server goes down, our load balancer will have to forward requests to a new server, which will result in cache misses
+
+- **Cache Eviction Policy:** The policy by which values get evicted or removed from a cache. Popular cache eviction policies include LRU (least-recently used), FIFO (first in first out), and LFU (least-frequently used).
+
+- **Content Delivery Network:** A CDN is a third-party service that acts like a cache for your servers. Sometimes, web applications can be slow for users in a particular region if your servers are located only in another region. A CDN has servers all around the world, meaning that the latency to a CDN's servers will almost always be far better than the latency to your servers. A CDN's servers are often referred to as PoPs (Points of Presence). Two of the most popular CDNs are Cloudflare and Google Cloud CDN
 
 ## Glossary
 
