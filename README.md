@@ -87,7 +87,7 @@ How do you make a system highly available?  make sure you system does not have s
 
 Passive redundancy - having multiple components at a given layer in a system, and if one of the components dies, nothing happens, the load is shared to the other components in the layer. 
 
-
+Active redundancy - when you have many machines working together, and the is only one machine handling traffic for example, and this machine fails, the other machines are going to know that it failed, and are going to take over. This approach is more complicated. 
 
 Key Terms:
 
