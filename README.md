@@ -118,6 +118,23 @@ Instances where caching can be useful:
 - If you are making long computational operations
 - If you want to improve throughput, maybe you want to reduce the hits on a DB, and hit a cache instead
 
+When it comes to writing to a cache there could be different scenarios:
+
+1. Write through cache - a type of caching system when you edit a piece of data, your system will write that piece of data to the DB and to the cache on the same operation. This way the cache and the DB are always in sync, however this is more costly since you still have to hit the DB
+
+2. Write back cache - the server will only update the cache, so it will be out of sync with DB, then the system will asynchronous update the DB (every 5min, or every so often). One of the downsides is that if the cache is lost, then you lose data.
+
+For example, if designing the youtube comment section, then possibly having a stale comment being seen, or e1240en being replied to is bad. Therefore a solution like Write back Caching would not be ideal and a write through caching would be better or having an isolated instance of a cache could also be ideal, e.g. a redis instance.
+
+In general, if the data that you are dealing with is static data the caching is great, but if the data is mutable, then it can get tricky. Then you would need to keep the sources of truth in sync.
+
+Def consider using caching if the data is static, if you have a single point reading or writing the data, if you don't care about consistency/staleness.
+
+Eviction policies with caching:
+
+- LRU: You get rid of the least recently used data
+- LFU: Ypu get rid of the least frequently used data
+
 Key terms:
 
 - **Cache:** A piece of hardware or software that stores data, typically meant to retrieve that data faster than otherwise. Caches are often used to store responses to network requests as well as results of computationally-long operations. Note that data in a cache can become stale if the main source of truth for that data (i.e., the main database behind the cache) gets updated and the cache doesn't.
