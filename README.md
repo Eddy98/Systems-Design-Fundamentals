@@ -26,9 +26,17 @@ Server - Listens to a client, and sends data
 Notes: A protocol is just an agreed upon set of rules for an interaction between 2 parties.
 Modern internet essentially runs following the IP.
 
-A handshake is a special TCP interaction when a PC contacts another, saying "hey i wanna connect" and the other PC responds. After these the 2 machines are free to talk to another.
+The modern internet runs on IP. This means that when a machine or a client interacts with another machine, the data is sent in the from a an **IP packet**. IP packets have 2 main sections, the IP headers and the payload (data). 
+
+A handshake is a special TCP interaction when a PC contacts another, saying "hey i wanna connect" and the other PC responds. After these the 2 machines are free to talk to another. TCP is a more powerful wrapper around the IP. It still lacks a more robust framework that devs can rely on.
+
+HTTP build on top of TCP. it gives a higher level abstraction, the request/response pattern. 
 
 Key Terms:
+
+- **IP Address:** An address given to each machine connected to the public internet. IPv4 addresses consist of four numbers separated by dots: **a.b.c.d** where all four numbers are between 0 and 255. Special values include:
+  - **127.0.0.1:** Your own local machine. Also referred to as localhost.
+  - **192.168.x.y:** Your private network. For instance, your machine and all machines on your private network will usually have 192.168 prefix
 
 - **IP - Internet Protocol:** . This network protocol outlines how almost
   all machine-to-machine communications should happen in the world. Other
@@ -39,8 +47,7 @@ Key Terms:
   ordered, reliable data delivery between machines over the public internet by
   creating a connection
 
-- **HTTP - HyperText Transfer Protocol:** is a very common network protocol implemented on top
-  of TCP. Clients make HTTP requests, and servers respond with a response.
+- **HTTP - HyperText Transfer Protocol:** is a very common network protocol implemented on top of TCP. Clients make HTTP requests, and servers respond with a response.
 - **IP Packet:**
   Sometimes more broadly referred to as just a (network) packet, an IP
   packet is effectively the smallest unit used to describe data being sent over IP, aside from bytes. An IP packet consists of:
