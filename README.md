@@ -56,7 +56,9 @@ Key Terms:
 
 ## Storage
 
-Notes: A data base is pretty much a server. A PC can be a DB is set up accordingly for clients. DB are persistent. If you write to Disk, data will persist. Data stored in memory is temporary.
+Notes: A data base is pretty much a server. A PC can be a DB is set up accordingly for clients. DB are persistent. If you write to Disk, data will persist. Data stored in memory is temporary. 
+
+DB serve to store and retrieve data. DB persistent of data is not always guaranteed in the case of an issue like a power outage. If data is saved on Disk, then data will persist. In contrast, if DB writes data in memory, if DB server goes down, the data will not persist (An example of storing data in memory is like if you are storing data in a HashMap or Array). DB are a more complex topic than explained here. There is a lot of depth to them. There are multiple DB system that offer different structures. 
 
 Key Terms:
 
@@ -153,6 +155,22 @@ Key terms:
 - **Cache Eviction Policy:** The policy by which values get evicted or removed from a cache. Popular cache eviction policies include LRU (least-recently used), FIFO (first in first out), and LFU (least-frequently used).
 
 - **Content Delivery Network:** A CDN is a third-party service that acts like a cache for your servers. Sometimes, web applications can be slow for users in a particular region if your servers are located only in another region. A CDN has servers all around the world, meaning that the latency to a CDN's servers will almost always be far better than the latency to your servers. A CDN's servers are often referred to as PoPs (Points of Presence). Two of the most popular CDNs are Cloudflare and Google Cloud CDN
+
+## Proxies
+
+**Notes:** There are forward and reverse proxies. A forward proxy is a server that sits between a client(s) and a server(s). It is a server that acts on behalf of the client. Proxies are on the clients team of an interaction with a server. When the client is going to issues a request, it first goes to the proxy first, and then the proxy will forward the request to the server. Then the server responds, it the response also goes trough the proxy. A proxy can serve as way to hide the identity of a client. The source IP address from the initial request can be removed and replaced by going through a proxy. This is similar to the behavior of a **VPN**. 
+
+Reverse proxies act on behalf of the server. If a client wants to send a request to a server, the request is actually going to go to the reverse proxy first. The client would be unaware of this. The Reverse proxy will forward the request to the server. Reverse proxies are very useful. For instance, you can filter out request that you want to ignore. You can have the reverse proxy take care of caching or logging. One of the use cases is to use a reverse proxy as a **load balancer**. 
+
+Key Terms:
+
+- **Forward Proxy:** A server that sits between a client and servers and act on behalf of the client, typically used to mask the client's identity (IP address). Note that forward proxies are often referred to as just proxies.
+
+- **Reverse Proxy:** A server that sits between clients and servers and act on behalf of the servers, typically used for logging, load balancing, or caching.
+
+- **Nginx:** Pronounced "engine X" - is a very popular webserver that's often used as a reverse proxy and load balancer. 
+
+
 
 ## Glossary
 
