@@ -170,7 +170,21 @@ Key Terms:
 
 - **Nginx:** Pronounced "engine X" - is a very popular webserver that's often used as a reverse proxy and load balancer. 
 
+## Load Balancers
 
+**Notes:** Very common, used when servers have to manage a limited amount of resources. When a system is horizontally scaled system, meaning that there are multiple servers to manage the request from the clients, a load balancer can be used to know to what server issue the requests to. A load balancer is a server that sits in between a set of clients and a set of servers, it has the job of balancing workloads across resources. The clients issue the request to the load balancer, and then the load balancer redirect the request to the proper server. Load balancers assist with preventing servers overloading with an excess of requests. And also by distributing better the request, the system provides a better throughput. Load balancers are a type of reverse proxy. They can happen at multiple places in a system.  
+
+One way that load balancers select servers is a round robin approach. It is a method that it goes trough all the servers in an order, and then it repeats, like a circle. Another more complex approach is a weighted round robin, you assign a weight on a server. This can mean that the load balancer can redirect more request to a server than another. This could be could be because one server could be more powerful than another. Another way os based on performance. The load balancer would perform health checks on the servers, and based on the info it decides where to redirect requests. Another common is an IP based server selection strategy. When Load balancer receives a request, it hashes the IP address of the client to send request to mapped server. Another strategy is a path based server selection, a load balancer distributes request depending on the path. For example, all request related to payments go to a specific set of servers, or all request related to advertising get routed to a specific set of servers. 
+
+Sometimes it can make sense to have multiple load balancers with different strategies. For example, clients can issue request to a first load balancer, and then these are redirected to other load balancers with a different strategy. 
+
+**Key Terms:**
+
+- **Load Balancers:** A type of reverse proxy that distributes traffic across servers. Load balancers can be found in many parts ofa system, from the DNS layer all the way to the database layer. 
+
+- **Server-Selection Strategy:** How a load balancer chooses servers when distributing traffic amongst multiple servers. Commonly used strategies include round-robin, random selection, performance-based selection (choosing the server with the best performance metrics, like the fastest response time or the least amount of traffic), and IP-based Routing.
+
+- **Hot Spot:** When distributing a workload across a set of servers, that workload might be spread unevenly. This can happen if your sharding key or your hashing function are suboptimal, or if your workload is naturally skewed: some servers will receive a lot more traffic than others, this creating a "hot spot".
 
 ## Glossary
 
