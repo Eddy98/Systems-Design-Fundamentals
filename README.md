@@ -188,6 +188,16 @@ Sometimes it can make sense to have multiple load balancers with different strat
 
 ## Hashing
 
+Notes:
+
+Hashing is an action that you can perform to transform an arbitrary piece of data into a fixed size value, typically an integer value. For example when a group of clients hits a load balancer proxy server, we can hash the request that come in, and bucket the request to be routed to a specific server. One simple way to hash is to mod the some integer representation of the request by the number of servers. 
+
+Hashing functions should have uniformity, evenly distributing the data values. Typically we do not write our own hashing functions. We use already created and popular hashing functions. When you are dealing with a large scale system, things get more complicated, things like server dying can happen, new servers come in, or server can get busier than others. 
+
+For consistent hashing, you can thin about it non-linearly, where servers are positioned on a circle, requests move clockwise or counter-clockwise to get mapped to the first server they encounter. This helps to avoid remapping to new servers whenever server gets added or dropped. 
+
+Rendezvous
+
 **Key Terms**
 
 - **Hashing Function:** A function that takes in a specific data type (such as a string or an identifier) and outputs a number. Different inputs may have the same output, but a good hashing function attempts to minimize those **hashing collisions** (which is equivalent to maximizing uniformity).
@@ -197,14 +207,6 @@ Sometimes it can make sense to have multiple load balancers with different strat
 - **Rendezvous Hashing:** A type of hashing also coined highest random weight hashing. Allows for minimal re-distribution of mappings when a server goes down.
 
 - **SHA:** Short for "secure hash algorithm", the SHA is a collection fo cryptographic hash functions used in the industry. These days, SHA-3 is a popular choice to use in a system.
-
-Notes:
-
-Hashing is an action that you can perform to transform an arbitrary piece of data into a fixed size value, typically an integer value. For example when a group of clients hits a load balancer proxy server, we can hash the request that come in, and bucket the request to be routed to a specific server. One simple way to hash is to mod the some integer representation of the request by the number of servers. 
-
-Hashing functions should have uniformity, evenly distributing the data values. Typically we do not write our own hashing functions. We use already created and popular hashing functions. When you are dealing with a large scale system, things get more complicated, things like server dying can happen, new servers come in, or server can get busier than others. 
-
-For consistent hashing, you can thin about it non-linearly, where servers are positioned on a circle, requests move clockwise or counter-clockwise to get mapped to the first server they encounter.  
 
 ![](./consistentHashing.PNG)
 
