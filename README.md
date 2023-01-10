@@ -186,6 +186,28 @@ Sometimes it can make sense to have multiple load balancers with different strat
 
 - **Hot Spot:** When distributing a workload across a set of servers, that workload might be spread unevenly. This can happen if your sharding key or your hashing function are suboptimal, or if your workload is naturally skewed: some servers will receive a lot more traffic than others, this creating a "hot spot".
 
+## Hashing
+
+**Key Terms**
+
+- **Hashing Function:** A function that takes in a specific data type (such as a string or an identifier) and outputs a number. Different inputs may have the same output, but a good hashing function attempts to minimize those **hashing collisions** (which is equivalent to maximizing uniformity).
+
+- **Consistent Hashing:** A type of hashing that minimizes the number of keys that need to be remapped when a hash table gets resized. It's often used by load balancers to distribute traffic to servers; it minimizes the number of requests that get forwarded to different servers when new servers are added or when existing servers are brought down.
+
+- **Rendezvous Hashing:** A type of hashing also coined highest random weight hashing. Allows for minimal re-distribution of mappings when a server goes down.
+
+- **SHA:** Short for "secure hash algorithm", the SHA is a collection fo cryptographic hash functions used in the industry. These days, SHA-3 is a popular choice to use in a system.
+
+Notes:
+
+Hashing is an action that you can perform to transform an arbitrary piece of data into a fixed size value, typically an integer value. For example when a group of clients hits a load balancer proxy server, we can hash the request that come in, and bucket the request to be routed to a specific server. One simple way to hash is to mod the some integer representation of the request by the number of servers. 
+
+Hashing functions should have uniformity, evenly distributing the data values. Typically we do not write our own hashing functions. We use already created and popular hashing functions. When you are dealing with a large scale system, things get more complicated, things like server dying can happen, new servers come in, or server can get busier than others. 
+
+For consistent hashing, you can thin about it non-linearly, where servers are positioned on a circle, requests move clockwise or counter-clockwise to get mapped to the first server they encounter.  
+
+![](./consistentHashing.PNG)
+
 ## Glossary
 
 - **Client:**
