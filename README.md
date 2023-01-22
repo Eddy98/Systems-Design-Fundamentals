@@ -210,6 +210,67 @@ Rendezvous
 
 ![](./consistentHashing.PNG)
 
+## Relational Databases
+
+Notes: 
+
+We have relation vs. non-relational databases. A relational DB imposes a tabular like structure on the data stored in it. Data would be stored in Tables (or relations) are structures that represent typically and entity (Like for example payments). Rows in relational DB are referenced as records. Non-relational DBs do no impose this tabular structure on the data. Most relational DBs support SQL (Structured Query Language). SQL is a powerful programming language for DBs. 
+
+A SQL DB most use ACID transaction. It's an operation on a DB that has 4 properties. Atomicity - Consistency - Isolation - Durability. 
+
+Atomicity dictates that if a transaction takes one or more sub-operations to complete, then they behave like a unit. For example when transferring funds, (2 operations, one to subtract and add) they will either all succeed or all fail.
+
+Consistency means that any transaction in the DB will abide by all of the rules in the DB. Any future transaction will take into account all the past transactions in the DB.
+
+Isolation means that multiple transaction can occur simultaneously but will be like if they happened sequentially
+
+Durability means that effects of a transaction in a DB are permanent. 
+
+The idea of a DB index is to create a helper Data structure in the DB that would be optimized for searching on a specific attribute (column). DB indexes are complicated and there are multiple implementations. You can think of an index as a Table of contents that you have the contents that could be sorted in a way to help search. Then this content could point to data that you need. An index would would take up more space. 
+
+The most important part in a system design context is to be aware of the benefits of relational DBs vs. non-relational DBs, to know about SQL, ACID transactions, and DB indexes. 
+
+**Key Terms**
+
+- **Relational Databases:** A type of structured databases in which data is stored following a tabular format; of ten supports powerful querying using SQL.
+
+- **Non-Relational Databases:** In contrast with relational DBs, a type of DB that is free of imposed, tabular-like structure. Often referred to as NoSQL DBs.
+
+- **SQL:** Structured Query Language. Relational DBs can be used using derivative of SQL such as PostgreSQL in the case of Postgres. 
+
+- **ACID Transaction:** A type of DB transaction that has 4 important properties:
+  - Atomicity: The operations that constitute the transaction will either all succeed or all fail. There is no in-between state.
+  - Consistency: The transaction cannot bring the database to an invalid state. After the transaction is committed or rolled back, the rules for each record will still apply, and all future transactions will see the effect of the transaction. Also named Strong Consistency.
+  - Isolation: The execution of multiple transactions concurrently will have the same effect as if they had been executed sequentially.
+  - Durability: Any committed transaction is written to non-volatile storage. It will not be undone by a crash, power loss, or network partition.
+
+- **Database Index:** A special auxiliary data structure that allows your database to perform certain queries much faster. Indexes can typically only exist to reference structured data, like data stored in relational databases. In practice, you create an index on one or multiple columns in your database to greatly speed up read queries that you run very often, with the downside of slightly longer writes to your database, since writes have to also take place in the relevant index.
+
+- **Strong Consistency:** Refers to the consistency of ACID transactions, as opposed to Eventual Consistency.
+
+- **Strong Consistency:** A consistency model which is unlike Strong Consistency. In this model, reads might return a view of the system that is stale. An eventually consistent datastore will give guarantees that state of the database will eventually reflect writes within a time period (could be 10 seconds or minutes). 
+
+- **Postgres:** A relational database that uses a dialect of SQL called PostgreSQL. Provides ACID transactions.
+
+## Key-Value Stores
+
+One of the most commonly used NoSQL paradigms today, the key-value store bases its data model on the associative array data type.
+
+The result? A fast, flexible storage machine that resembles a hash table. That's right folks, our favorite friendly neighborhood data structure strikes again!
+
+Notes: 
+Key-Value Stores are great for caching. Another good use case is for important dynamic configurations. There are multiple options, like in disk VS in memory key value stores.  
+
+**Key Terms**
+
+- **Key-Value store:** A Key-Value Store is a flexible NoSQL DB that's often used for caching dynamic configuration. Popular opinions include DynamoDB, REdis, and ZooKeeper.
+
+- **Etcd:** Etcd is a strongly consistent and highly available key-value store that's often used to implement leader election in a system.
+
+- **Redis:** An in-memory key-value store. Does offer some persistent storage options but is typically used as a really fast, best-effort caching solution. Redis is also often used to implement rate limiting.
+
+- **ZooKeeper:** ZooKeeper is a strongly consistent, highly available key-value store. It's often used to store important configuration or to perform leader election.
+
 ## Glossary
 
 - **Client:**
