@@ -338,7 +338,32 @@ Spatial DBs they rely in spatial indexes, the most common one is quadtree. Most 
 
 - **Neo4j:** A popular graph database that consists of nodes, relationships, properties, and labels.
 
-## Glossary
+## Replication and Sharding
+
+A system's performance is often only as good as its database's; optimize the latter, and watch as the former improves in tandem!
+
+On that note, in this video we'll examine how data redundancy and data partitioning techniques can be used to enhance a system's fault tolerance, throughput, and overall reliability.
+
+Notes:
+
+Replication, you have duplicate version of the main DB, like a stand by of the main DB. the main DB handles all requests, but also replicates these to the replicate DB. if main DB fails, then the replica takes over in the meantime. The replica need to keep up with the changes/updates to the main DB. You never want you Data to be out of date with main DB. if the replica write operation fails, then they all fail. 
+
+In some scenarios where data consistency across different DBs is not priority, like a post on Facebook, replicated DBs in other regions can be updated Asynchronously. This can help with latency depending on the region by having DBs closer to clients
+
+Sharding, splitting DBs into shard to avoid duplication of large amount of data. If there is a lot of data, replication might no make sense. Sharding can cause hot spots ikf the sharding method/strategy is not proper. You can use a hashing function to shard DBs. 
+
+**Key Terms:**
+
+- **Replication:** The act of replicating the data from one database server to others. This is sometimes used to increase the redundancy of your systems and tolerate regional failures for instance. Other times you can use replication to move closer to your clients, thus decreasing the latency of accessing specific data.
+
+- **Sharding:** Sometimes called data partitioning, sharding is the act of splitting a database into 2 or more pieces called shards and is typically done to increase throughput of your database. Popular sharding strategies include:
+  - Sharding base on a client's region.
+  - Sharding based on the type of data being stored (e.g. use data gets stored in one shard, payments data gets stored ion another shard).
+  - Sharding based on the hash of a column (only for structured data)
+
+- **Hot Spot:** When distributing a workload across a set of servers, that workload might be spread unevenly. This can happen if your sharding key or your hashing function are suboptimal, or if your workload is naturally skewed: some servers will receive a lot more traffic than others, thus creating a "hot spot".
+
+# Glossary
 
 - **Client:**
   A machine or process that requests data or service from a server.
