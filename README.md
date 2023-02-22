@@ -363,6 +363,22 @@ Sharding, splitting DBs into shard to avoid duplication of large amount of data.
 
 - **Hot Spot:** When distributing a workload across a set of servers, that workload might be spread unevenly. This can happen if your sharding key or your hashing function are suboptimal, or if your workload is naturally skewed: some servers will receive a lot more traffic than others, thus creating a "hot spot".
 
+## Leader Election
+
+Notes:
+One use case: Having a third party service wanting to access a DB. We can use a server as a middleman (proxy) for the the DB. if the middle man fails, then the whole system fails. The natural solution is redundancy. So we can have 5 servers to do this middle man transactions. These servers can elect a leader that will be responsible of making the transactions. The "Followers" will not do anything but will be in stand by in case the leader fails. This is practices when we want to make sure that only one transaction happen to the third party, like with a payment service.  The difficulty in this approach, is picking the leaders and having the consensus of who the leader is. 
+
+We can use a consensus algorithm to achieve this. Two tools to do this: zookeeper and Etcd, they allow you to implement your leader election in a simple way. Etcd is a key value store that is highly available and strong consistency. 
+
+
+**Key Terms:**
+
+- **Leader Election:** The process by which nodes in a cluster (for instance, servers in a set of servers) elect a so-called "leader" amongst them, responsible for the primary operations of the service that these nodes support. When correctly implemented, leader election guarantees that all nodes in the cluster know which one is the leader at any given time and can elect a new leader if the leader dies for whatever reason.
+
+- **Consensus Algorithm:** A type of complex algorithms used to have multiple entities agree on a single data value, like who the "leader" is amongst a group of machines. Two popular consensus algorithms are Paxos and Raft.
+
+- **Paxos and Raft:** Two consensus algorithms that, when implemented correctly, allow for the synchronization of certain operations, even in a distributed setting.
+
 # Glossary
 
 - **Client:**
