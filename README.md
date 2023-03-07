@@ -379,6 +379,59 @@ We can use a consensus algorithm to achieve this. Two tools to do this: zookeepe
 
 - **Paxos and Raft:** Two consensus algorithms that, when implemented correctly, allow for the synchronization of certain operations, even in a distributed setting.
 
+## Peer-To-Peer Network
+
+Notes:
+
+In a case scenario where we have one machine that needs to share a 5GB file to a 1000 other machines we could user a Peer-To-Peer Network to solve this problem. We could split up this 5GB file to small chunks and distribute them among the machines. Then we can let the machines or peers communicate to build the complete file. In order for this to work, peers need to know to what other peers they need to talk next. This is called peer discovery and peer selection. 
+
+DHT - Peer-To-Peer Network often operate by having a Distributed Hash Table that contains data on who has what data. 
+
+**Key Terms:**
+
+- **Peer-To-Peer Network:** A collection of machines referred to as peers that divide a workload between themselves to presumably complete the workload faster than would otherwise be possible. Peer to peer networks are often used in file-distribution systems. 
+
+- **Gossip Protocol:** When a set of machine talk to each other in a uncoordinated manner in a cluster to spread information through a system without requiring a central source of data. 
+
+## Polling and Streaming
+
+Notes:
+
+Polling: not complicated to implement. The client issues a request for data followed by a set interval. So every X time the request is made. Polling has limitations, for example in a chat room, you would want to see new messages instantly. In this use case polling can have limitations as it would not help in this use case as between intervals there would be no communication. You could reduce the time of the intervals, but that comes with the trade off of having more load on the server.
+
+Streaming can be a better solution. You have a client open a long live connection with the server, done through a socket, basically a file that lives in the computer, that the computer can write to or read from to communicate with another computer. Like a portal to share data between 2 computers. The server would push messages (data) through the connection to the client, and the client would be listening to receive this data. With streaming, there is no requesting for data, but rather just an open communication and it is the serve's job to proactively send data to the client. This act of proactively sending data is sometimes called pushing. 
+
+Streaming is not necessarily better than polling. It depends on the use case of the system. If you need instantaneous experience or need data very frequently, then streaming is the best choice. otherwise, polling can be better. 
+
+**Key Terms:** 
+
+- **Polling:** The act of fetching a resource or piece of data regularly at an interval to make sure your data is not too stale.
+
+- **Streaming:** In networking, it usually refers to the act of continuously getting a feed of information from a server by keeping an open connection between the two machines or processes. 
+
+## Configuration
+
+Notes: 
+
+Static configs are bundle with the application code. Meaning that you would need to redeploy the entire app to make a configuration change and have it reflect. 
+
+Dynamic configs are separate from the application code. They are backed from a separate DB, and it gives power and flexibility. You can make changes to configurations with a click of a button, without having to redeploy the entire application code. This comes with risks. You can build tools around dynamic configs to make it safer. 
+
+**Key Terms:**
+
+- **JSON:** A file format heavily used in APIs and configuration. Stands for JavaScript Object Notation.
+
+- **YAML:** A File format mostly used in configuration. Example
+
+  ```
+  version: 1.0
+  name: AlgoExpert Configs
+  ```
+- **Key-Value Store:** is a flexible NoSQL DB that's often used for caching and dynamic configuration. Popular options include DynamoDB, Etcd, Redis, and ZooKeeper. 
+
+- **Configuration:** A set of parameters or constants that are critical to a  system. Configuration is typically written in JSON or YAML and can be either static, meaning that it's hard-coded and shipped with your System's application code (like frontend code, for instance), or dynamic, meaning that it lives outside of your system's application code.
+
+
 # Glossary
 
 - **Client:**
