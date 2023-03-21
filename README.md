@@ -431,6 +431,44 @@ Dynamic configs are separate from the application code. They are backed from a s
 
 - **Configuration:** A set of parameters or constants that are critical to a  system. Configuration is typically written in JSON or YAML and can be either static, meaning that it's hard-coded and shipped with your System's application code (like frontend code, for instance), or dynamic, meaning that it lives outside of your system's application code.
 
+## Rate Limiting
+
+Notes:
+
+you can rate limit based on users. you can identify a certain user, by the headers of a request maybe, and you can limit the user. You can limit on region of user, or on IP-address. You can rate limit on a lot of factors or things. 
+
+Rate limiting is not the ultimate way of protecting. For example for a DDoS, rate limiting is no enough to stop it. 
+
+Keeping track of the accesses in memory would not work if you have a distributed system. Typically this is handled in a separate service, one popular option is to use Redis. Servers can interact with redis to know if we have hit the limited number of request. 
+
+You can complicate rate limiting depending on the use-case. 
+
+**Key Terms:** 
+
+- **Rate Limiting:** the act of limiting the number of requests sent to or from a system. Rate limiting is most often used to limit the number of incoming requests in order to prevent DoS attacks and can be enforced at the IP-address level, at the user-account level, or at the region level, for example. Rate limiting can also be implemented in tiers; for instance, a type of network request could be limited to 1 per second , 5 per 10 seconds, and 10 per minute.
+
+- **DoD Attack:** Short for denial of service attack, a DoS attack is an attack in which malicious user tries to bring down or damage a system in order to render it unavailable to users. Much of the time, it consists of flooding it with traffic. Some DoS attacks are easily preventable with rate limiting, while others can be far trickier to defend against.
+
+- **DDoS Attack:** Short for distributed denial of service attack, a DDoS is a DoS attack in which traffic flooding the target system comes from many different sources (like thousands of machines), making it much harder to defend against.  
+
+## Logging and Monitoring
+
+Notes: 
+
+Logging is having some sort of system in place to collect all the logs and store them in a DB to later go back and take a look in order to debug any issues. You can format you logs to have the most organized useful info possible. Logging will allow for debugging, so it's very important. 
+
+Monitoring is similar to logging. In the context of system design, it comes down to having systems in place, that will allow for monitoring. There are tools in place that can scrape your logs, in order to build visual metrics. This approach is limited by the logs. Another way is to use a time series DB, a DB that is tailored for that that is build around time. Servers can periodically send data to the DB and this data can be used for monitoring. Gathering metrics like this allow for building robust monitoring systems independent from logging.
+
+Alerting is also important in system design. You can use monitoring systems and combine with for example Slack to create good alerting.
+
+
+**Key Terms:** 
+
+- **Logging:**  The act of collecting and storing logs--useful information about events in your system. Typically your programs will output log messages to its STDOUT or STDERR pipes, which will automatically get aggregated into a centralized logging solution.
+
+- **Monitoring:** The process of having visibility into a system's key metrics, monitoring is typically implemented by collecting important events in a system and aggregating them in human readable charts.
+
+- **Alerting:** The process through which system administrators get notified when critical system issues occur. Alerting can be set up by defining specific thresholds on monitoring charts, past which alerts are sent to a communication channel like Slack
 
 # Glossary
 
