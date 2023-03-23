@@ -470,6 +470,42 @@ Alerting is also important in system design. You can use monitoring systems and 
 
 - **Alerting:** The process through which system administrators get notified when critical system issues occur. Alerting can be set up by defining specific thresholds on monitoring charts, past which alerts are sent to a communication channel like Slack
 
+## Publish/Subscribe Pattern
+
+Notes:
+
+Pub/Sub is a solution for problems that rise when scaling and having a dis
+
+The Pub Sub pattern consist of 4 entities: 
+1. The Publisher
+2. The Subscribers
+3. The Topic
+4. The Message
+
+The Publisher are going to be mainly the servers. Their job is to publish data to the topics. The Topics are channels of specific information. The Subscribers are the clients, they do not communicate with the servers, they are subscribed to the topics. The topics act as an intermediate betweens the pubs and the subs. The message is the data.
+
+With Topics, you are guaranteed at least once delivery of the message. Every message that is published in a topic is consumed at least once. messages can be delivered more than once in a pub/sub system. This brings the concept of idempotence. If the operation is performed multiple times, the result is the same. Pub subs systems have ordering, they keep the order as they work like a queue. They also have a property or rewind, where you can reply a message.
+
+ The topics behave essentially, like a DB solution. 
+
+
+**Key Terms:**
+- **Publish/Subscribe Pattern:** 
+  Often shortened as Pub/Sub, the Publish/Subscribe pattern is a popular messaging model that consists of publishers and subscribers. Publishers publish messages to special topics (sometimes called channels) without caring about or even knowing who will read those messages, and subscribers subscribe to topics and read messages coming through those topics.
+  
+  Pub/Sub systems often come with very powerful guarantees like at-least-once delivery, persistent storage, ordering of messages, and replayability of messages.
+- **Idempotent Operation:** 
+  An operation that has the same ultimate outcome regardless of how many times it's performed. If an operation can be performed multiple times without changing its overall effect, it's idempotent. Operations performed through a Pub/Sub messaging system typically have to be idempotent, since Pub/Sub systems tend to allow the same messages to be consumed multiple times.
+
+  For example, increasing an integer value in a database is not an idempotent operation, since repeating this operation will not have the same effect as if it had been performed only once. Conversely, setting a value to "COMPLETE" is an idempotent operation, since repeating this operation will always yield the same result: the value will be "COMPLETE".
+
+- **Apache Kafka:** 
+  A distributed messaging system created by LinkedIn. Very useful when using the streaming paradigm as opposed to polling.
+
+- **Cloud Pub/Sub:**
+  A highly-scalable Pub/Sub messaging service created by Google. Guarantees at-least-once delivery of messages and supports "rewinding" in order to reprocess messages.
+
+
 # Glossary
 
 - **Client:**
