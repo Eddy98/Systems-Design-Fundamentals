@@ -506,6 +506,37 @@ With Topics, you are guaranteed at least once delivery of the message. Every mes
   A highly-scalable Pub/Sub messaging service created by Google. Guarantees at-least-once delivery of messages and supports "rewinding" in order to reprocess messages.
 
 
+## Map Reduce 
+
+Notes: 
+
+![](./MapRducePic.PNG)
+
+when we are dealing with a map reduce model, we can assume we are dealing with a DFS. There is a central control plane, that that has the important info about the data in the DFS. 
+
+Often time, because we are dealing with large data sets, we do no move the large chunks of data. We have the map programs move to where the data sets are, and run there locally. The key-value pairs structure is very important because when you reduce data values that come from the same data set, you are likely looking for some sort of commonality in the data values. So you can reduce them to a single value. 
+
+Another thing DFS do is handle faults. To handle this, we re-perform the Map step or the reduce step. We require that the map step is idempotent. 
+
+
+
+- **Map Reduce**
+A popular framework for processing very large datasets in a distributed setting efficiently, quickly, and in a fault-tolerant manner. MapReduce job is comprised of 3 main steps.
+
+  - The map step, which runs a map function on the various chunks of the dataset and transforms these chunks into intermediate key-value pairs
+  - the Shuffle step, which reorganizes the intermediate key-value pairs such that pairs of the same key are routed to the same machine in the final step.
+  - the Reduce step, which runs a reduce function on the newly shuffled key-value pairs and transforms them into more meaningful data
+
+  The canonical example of a MapReduce use case is counting the number of occurrences of words in a large text file.
+
+  When dealing with a MapReduce library, engineers and/or system administrators only need to worry about the map and reduce functions, as well as their inputs and outputs. All other concerns, including the parallelization of tasks and the fault-tolerance of the MapReduce job are abstracted away and taken care of by the MapReduce implementation.
+
+- **Distributed File System:** A Distributed File System is an abstraction over a (usually large) cluster of machines that allows them to act like one large file system. The 2 most popular implementations of a DFS are the Google File System and teh Hadoop Distributed File System.
+
+  Typically, DFSs take care of the classic availability and replication guarantees that can be tricky to obtain in a distributed system setting. The overarching idea is that files are split into chunks of a certain size (4MB or 64MB, for instance), and those chunks are shared across a large cluster of machines. A central control plane is in change deciding where each chunk resides, routing reads to the right nodes, and handling communication between machines.
+
+  Different DFS implementations have slightly different APIs and semantics, but they achieve the same common goal: extremely large-scale persistent storage.  
+
 # Glossary
 
 - **Client:**
