@@ -548,7 +548,8 @@ Asymmetric encryption, also called public key encryption, where you rely on 2 ke
 
 How do we make HTTP secure? HTTPS, an extension of HTTP on top of TLS
 
-When a client and a server set up a communication. 
+When a client and a server set up a communication over HTTPS, they first go through a TLS Handshake, a process that establishes the secure connection. The first thing that happens is the Client sends a client hello to the server, which is a random string of bytes. The server responds to the client with 2 things, the server hello, another random string of bytes. The server also sends its SSL certificate. The server has a public/private key, the public key is contained in the SSL certificate, which is sent to the client. The client now generates yet another random string of bytes called the premaster secret, and will be sent back the server but this time it will be encrypted by the public key that the client got from the server. The server has the private key corresponding to the public key used to encrypt the premaster secrets, therefore it is the only entity capable of decrypting it. Using these set of random strings (client hello, server hello) and the premaster secrets they generate a session key. 
+How does the client know that the public key provided by the server is from the actual server and no a MITM attack. With SSL certificate, these are granted by a 3rd party called a certificate authority. 
 
 - **Man-In-The-Middle Attack:**
   An attack in which the attacker intercepts a line of communication that is thought to be private by its 2 communicating parties.
@@ -597,6 +598,18 @@ When a client and a server set up a communication.
   - The server responds with a server hello—another string of random bytes—as well as its SSL certificate, which contains its public key.
   - The client verifies that the certificate was issued by a certificate authority and sends a premaster secret—yet another string of random bytes, this time encrypted with the server's public key—to the server.
   - The client and the server use the client hello, the server hello, and the premaster secret to then generate the same symmetric-encryption session keys, to be used to encrypt and decrypt all data communicated during the remainder of the connection.
+
+  ## API Design
+
+  Note: Different from System design, it is a sibling from system design. At interviews you can be given either a system design interview or an API design interview. 
+
+  - **Pagination:**
+    When a network request potentially warrants a really large response, the relevant API might be designed to return only a single page of that response (i.e., a limited portion of the response), accompanied by an identifier or token for the client to request the next page if desired.
+
+    Pagination is often used when designing List endpoints. For instance, an endpoint to list videos on the YouTube Trending page could return a huge list of videos. This wouldn't perform very well on mobile devices due to the lower network speeds and simply wouldn't be optimal, since most users will only ever scroll through the first ten or twenty videos. So, the API could be designed to respond with only the first few videos of that list; in this case, we would say that the API response is paginated.
+
+  - **CRUD Operations:** 
+    Stands for Create, Read, Update, Delete Operations. These four operations often serve as the bedrock of a functioning system and therefore find themselves at the core of many APIs. The term CRUD is very likely to come up during an API-design interview.
 
 
 # Glossary
