@@ -531,11 +531,73 @@ A popular framework for processing very large datasets in a distributed setting 
 
   When dealing with a MapReduce library, engineers and/or system administrators only need to worry about the map and reduce functions, as well as their inputs and outputs. All other concerns, including the parallelization of tasks and the fault-tolerance of the MapReduce job are abstracted away and taken care of by the MapReduce implementation.
 
-- **Distributed File System:** A Distributed File System is an abstraction over a (usually large) cluster of machines that allows them to act like one large file system. The 2 most popular implementations of a DFS are the Google File System and teh Hadoop Distributed File System.
+- **Distributed File System:** 
+  A Distributed File System is an abstraction over a (usually large) cluster of machines that allows them to act like one large file system. The 2 most popular implementations of a DFS are the Google File System and teh Hadoop Distributed File System.
 
   Typically, DFSs take care of the classic availability and replication guarantees that can be tricky to obtain in a distributed system setting. The overarching idea is that files are split into chunks of a certain size (4MB or 64MB, for instance), and those chunks are shared across a large cluster of machines. A central control plane is in change deciding where each chunk resides, routing reads to the right nodes, and handling communication between machines.
 
   Different DFS implementations have slightly different APIs and semantics, but they achieve the same common goal: extremely large-scale persistent storage.  
+
+## Security and HTTPS
+
+Notes: The idea is to encrypt a communication message that should be able to be decrypted by the receiving party. 
+
+There is symmetric and asymmetric encryption. Symmetric encryption relies on symmetric key algorithms. These rely on one key to encrypt and decrypt data. This key needs to be shared with broth parties communicating. How can this key be created and shared? 
+
+Asymmetric encryption, also called public key encryption, where you rely on 2 keys to encrypt and decrypt encryption. You have the 2 keys generated together, one public and one private. These are generated mathematically, and they are bounded together. Any message is encrypted using the public key, and it can only be decrypted by the private key. The private key should only be accessed by the server, receiving the message. 
+
+How do we make HTTP secure? HTTPS, an extension of HTTP on top of TLS
+
+When a client and a server set up a communication. 
+
+- **Man-In-The-Middle Attack:**
+  An attack in which the attacker intercepts a line of communication that is thought to be private by its 2 communicating parties.
+
+  If a malicious actor intercepted and mutated an IP packet on its way from a client to a server, that would be a man-in-the-middle attack
+
+  MITM attacks are the primary threat that encryption and HTTPS aim to defend against.
+
+- **Symmetric Encryption:** 
+  A type of encryption that relies on only a single key to both encrypt and decrypt data. The key must be known to all parties involved in the communication and must therefore typically be shared between the parties at one point or another.
+
+  Symmetric key algorithms tend to be faster than their asymmetric counterparts
+
+  The most widely used Symmetric key algorithms are part of the advanced encryption standard (AES)
+
+- **Asymmetric Encryption:** 
+  Also known as public-key encryption, asymmetric encryption relies on two keys—a public key and a private key—to encrypt and decrypt data. The keys are generated using cryptographic algorithms and are mathematically connected such that data encrypted with the public key can only be decrypted with the private key.
+
+  While the private key must be kept secure to maintain the fidelity of this encryption paradigm, the public key can be openly shared.
+
+  Asymmetric-key algorithms tend to be slower than their symmetric counterparts.
+
+- **AES:** 
+  Stands for Advanced Encryption Standard. AES is a widely used encryption standard that has three symmetric-key algorithms (AES-128, AES-192, and AES-256).
+
+  Of note, AES is considered to be the "gold standard" in encryption and is even used by the U.S. National Security Agency to encrypt top secret information.
+
+- **HTTPS:**
+  The HyperText Transfer Protocol Secure is an extension of HTTP that's used for secure communication online. It requires servers to have trusted certificates (usually SSL certificates) and uses the Transport Layer Security (TLS), a security protocol built on top of TCP, to encrypt data communicated between a client and a server.
+
+- **TLS:**
+  The Transport Layer Security is a security protocol over which HTTP runs in order to achieve secure communication online. "HTTP over TLS" is also known as HTTPS.
+
+- **SSL Certificate:** 
+  A digital certificate granted to a server by a certificate authority. Contains the server's public key, to be used as part of the TLS handshake process in an HTTPS connection.
+
+  An SSL certificate effectively confirms that a public key belongs to the server claiming it belongs to them. SSL certificates are a crucial defense against man-in-the-middle attacks.
+
+- **Certificate Authority:** 
+  A trusted entity that signs digital certificates—namely, SSL certificates that are relied on in HTTPS connections.
+
+- **TLS Handshake:**
+  The process through which a client and a server communicating over HTTPS exchange encryption-related information and establish a secure communication. The typical steps in a TLS handshake are roughly as follows:
+
+  - The client sends a client hello—a string of random bytes—to the server.
+  - The server responds with a server hello—another string of random bytes—as well as its SSL certificate, which contains its public key.
+  - The client verifies that the certificate was issued by a certificate authority and sends a premaster secret—yet another string of random bytes, this time encrypted with the server's public key—to the server.
+  - The client and the server use the client hello, the server hello, and the premaster secret to then generate the same symmetric-encryption session keys, to be used to encrypt and decrypt all data communicated during the remainder of the connection.
+
 
 # Glossary
 
